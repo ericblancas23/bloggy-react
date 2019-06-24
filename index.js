@@ -106,4 +106,4 @@ PostResource.all.auth(function(req, res) {
             resolve(context.continue);
         }
     });
-})
+});
