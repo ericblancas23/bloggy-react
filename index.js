@@ -96,4 +96,14 @@ database.sync().then(() => {
 
 oidc.on('error', err => {
     console.log("oidc error: ", err);
-})
+});
+
+PostResource.all.auth(function(req, res) {
+    return new Promise(function(resolve, reject) {
+        if (!req.isAuthenticated()) {
+            res.status(401).send({ message: 'unauthorized' });
+        } else {
+            resolve(context.continue);
+        }
+    });
+});
