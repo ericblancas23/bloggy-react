@@ -57,7 +57,24 @@ class Admin extends React.Component {
         data.forEach(item=>item.editMode=false);
         this.setState({ data });
     }
-    render() {
+    addNewPost = () => {
+        const data = this.state.data;
+        data.unshift({
+            editMode: true,
+            title: '',
+            content: '',
+        });
+        this.setState({ data });
+    }
+    handleCancel = async () => {
 
+    }
+    handleEdit = () => {
+
+    }
+    render() {
+        // return(
+
+        // );
     }
 }
