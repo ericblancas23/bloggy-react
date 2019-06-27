@@ -11,7 +11,7 @@ const AppNavbar = () => (
 const Card = ((item, handleSubmit, handleEdit, handleDelete, handleCancel ) => {
     const { title, content, editeMode } = item;
 
-    if (editeMode) {
+    if (editMode) {
         return (
             <div class="card mt-4" Style="width: 100%;">
                 <div class="card-body">
@@ -42,3 +42,22 @@ const Card = ((item, handleSubmit, handleEdit, handleDelete, handleCancel ) => {
         );
     }
 });
+
+class Admin extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { data: [] };
+    }
+    componentDidMount() {
+        this.getPosts();
+    }
+    getPosts = async () => {
+        const response = fetch('/posts');
+        const data = await response.json();
+        data.forEach(item=>item.editMode=false);
+        this.setState({ data });
+    }
+    render() {
+
+    }
+}
