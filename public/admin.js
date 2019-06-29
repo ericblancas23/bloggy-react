@@ -44,19 +44,23 @@ const Card = ((item, handleSubmit, handleEdit, handleDelete, handleCancel ) => {
 });
 
 class Admin extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = { data: [] };
     }
+
     componentDidMount() {
         this.getPosts();
     }
+
     getPosts = async () => {
         const response = fetch('/posts');
         const data = await response.json();
         data.forEach(item=>item.editMode=false);
         this.setState({ data });
     }
+
     addNewPost = () => {
         const data = this.state.data;
         data.unshift({
@@ -66,9 +70,11 @@ class Admin extends React.Component {
         });
         this.setState({ data });
     }
+
     handleCancel = async () => {
         await this.getPosts();
     }
+
     handleEdit = (postId) => {
         const data = this.state.data.map((item) => {
             item.id === postId ? item.editMode = true : item.editMode = false;
@@ -76,6 +82,19 @@ class Admin extends React.Component {
         });
         this.setState({ data });
     }
+
+    handleDelete = (postId) => {
+        await fetch(`posts/${posts.id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+            }
+        });
+
+        await this.getPosts();
+    }
+
     render() {
         return(
 
