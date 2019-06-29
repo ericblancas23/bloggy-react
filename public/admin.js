@@ -95,6 +95,33 @@ class Admin extends React.Component {
         await this.getPosts();
     }
 
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const body = JSON.stringify({
+            title: data.get('title'),
+            content: data.get('content'),
+        });
+        const headers = {
+            'content-type': 'application/json',
+             accept: 'application/json',
+        }
+        if (data.get('id')) {
+            await fetch(`/posts/${data.get('id')}`, {
+                method: 'PUT',
+                headers,
+                body,
+            });
+        } else {
+            await fetch('/posts', {
+                method: 'POST',
+                headers,
+                body,
+            });
+        }
+        await this.getPosts();
+    }
+
     render() {
         return(
 
