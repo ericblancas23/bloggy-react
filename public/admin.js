@@ -124,7 +124,27 @@ class Admin extends React.Component {
 
     render() {
         return(
+            <div>
+                <button type="button" class="mt-4 mb-2 btn btn-primary btn-sm float-right" onClick={this.addNewPost}>
+                    Add New Post
+                </button>
+                {
+                    this.state.data.length > 0 ? (this.state.data.map(item =>  
+                        <Card item={item} 
+                        handleSubmit={this.handleSubmit}
+                        handleEdit={this.handleEdit.bind(this, item.id)}
+                        handleDelete={this.handleDelete.bind(this, item.id)}
+                        handleCancel={this.handleCancel} />
+                        )) : (<div class="card mt-5 col-sm">
+                                <div class="card-body">You don't have any posts. Use the "Add New Post" button to add some new posts!</div>
+                              </div>
+                             ) 
+                }
 
+            </div>
         );
     }
 }
+
+const domContainer = document.querySelector('#root');
+ReactDOM.render(e(Admin), domContainer);
