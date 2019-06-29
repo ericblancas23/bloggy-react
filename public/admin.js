@@ -67,10 +67,14 @@ class Admin extends React.Component {
         this.setState({ data });
     }
     handleCancel = async () => {
-
+        await this.getPosts();
     }
-    handleEdit = () => {
-
+    handleEdit = (postId) => {
+        const data = this.state.data.map((item) => {
+            item.id === postId ? item.editMode = true : item.editMode = false;
+            return item;
+        });
+        this.setState({ data });
     }
     render() {
         return(
